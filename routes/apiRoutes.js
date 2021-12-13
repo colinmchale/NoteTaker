@@ -1,6 +1,6 @@
 const api = require('express').Router();
 const { v4: uuidv4 } = require('uuid');
-const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
+const { readAndAppend, readFromFile, writeToFile } = require('../helpers/fsUtils');
 
 
 api.get('/notes', (req, res) => {
@@ -8,6 +8,20 @@ api.get('/notes', (req, res) => {
 
   readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
+
+// // To select a specific note and have it appear in center section
+// api.get('/notes/:note_id', (req, res) => {
+//   console.info(`${req.method} request received for feedback`);
+
+//   const noteId = req.params.note_id;
+//   readFromFile('./db/db.json')
+//     .then((data) => JSON.parse(data))
+//     .then((json) => {
+//     // Make a new array of all tips except the one with the ID provided in the URL
+//     const [result] = json.filter((note) => note.id === noteId);
+//     console.log(result)
+//   });
+// });
 
 
 api.post('/notes', (req, res) => {
@@ -25,7 +39,7 @@ api.post('/notes', (req, res) => {
     const newNote = {
       title,
       text,
-      note_id: uuidv4(),
+      id: uuidv4(),
     };
 
     readAndAppend(newNote, './db/db.json');
@@ -41,8 +55,21 @@ api.post('/notes', (req, res) => {
   }
 });
 
-// api.delete('/notes/:id', (req, res) => {
-    
-// });
+api.delete('/notes/:note_id', (req, res) => {
+  const noteId = req.params.note_id;
+  readFromFile('./db/db.json')
+    .then((data) => JSON.parse(data))
+    .then((json) => {
+    // Make a new array of all tips except the one with the ID provided in the URL
+    const result = json.filter((note) => note.id !== noteId);
 
+    console.log(noteId)
+    // Save that array to the filesystem
+    writeToFile('./db/db.json', result);
+
+    // Respond to the DELETE request
+    res.json(`Item ${noteId} has been deleted`);
+  });
+});
+  
 module.exports = api;
