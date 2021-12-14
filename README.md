@@ -19,6 +19,7 @@ To run this application you will need to enter 'npm i' to install all project de
 
 ## Usage  
 ![Screenshot of App](./images/NoteTaker.png)  
+Link to Deployed Application: [Click Here](https://whispering-harbor-33313.herokuapp.com/)  
 This was made for anyone in need of a digital notepad to keep track of notes throughout their day.
 
 ## License 
