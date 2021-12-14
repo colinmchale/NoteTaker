@@ -9,20 +9,18 @@ api.get('/notes', (req, res) => {
   readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
-// // To select a specific note and have it appear in center section
-// api.get('/notes/:note_id', (req, res) => {
-//   console.info(`${req.method} request received for feedback`);
+// To select a specific note and have it appear in center section
+api.get('/notes/:note_id', (req, res) => {
+  console.info(`${req.method} request received for feedback`);
 
-//   const noteId = req.params.note_id;
-//   readFromFile('./db/db.json')
-//     .then((data) => JSON.parse(data))
-//     .then((json) => {
-//     // Make a new array of all tips except the one with the ID provided in the URL
-//     const [result] = json.filter((note) => note.id === noteId);
-//     console.log(result)
-//   });
-// });
-
+  const noteId = req.params.note_id;
+  readFromFile('./db/db.json')
+    .then((data) => JSON.parse(data))
+    .then((json) => {
+    const [result] = json.filter((note) => note.id === noteId);
+    console.log(result)
+  });
+});
 
 api.post('/notes', (req, res) => {
     // Log that a POST request was received
