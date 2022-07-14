@@ -5,6 +5,8 @@
 A digital notepad is a great way to keep track of random thoughts and reminders one might have throughout the day. The Note Taker application is exactly that.  
 A user can type a title for eac note followed by the body portion of the note and save each note to the page. Previous saved notes will render on the left of the page. If a note is no longer desired, the user can choose to delete any note at any time.
 
+*Starter Code provided by Southern Methodist University Full Stack Web Development Bootcamp
+
 ## Table of Contents  
 [Description](#description)   
 [Installation](#installation)  
